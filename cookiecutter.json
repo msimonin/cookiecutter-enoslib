@@ -1,0 +1,9 @@
+{
+  "author": "John Doe",
+  "email": "john@doe.com",
+  "project_name": "Enoslib boilerplate",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_short_description": "Boilerplate to bootstrap a new experimentation framework using Enoslib",
+  "version": "0.0.1",
+  "project_url": ""
+}
