@@ -3,6 +3,7 @@ import logging
 import click
 
 import {{ cookiecutter.project_slug }}.tasks as t
+from {{ cookiecutter.project_slug }}.constants import CONF
 
 logging.basicConfig(level=logging.DEBUG)
 

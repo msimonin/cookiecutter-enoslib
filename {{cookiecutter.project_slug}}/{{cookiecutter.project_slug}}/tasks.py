@@ -1,4 +1,5 @@
 from enoslib.api import generate_inventory
+from enoslib.task import enostask
 from enoslib.infra.enos_g5k.provider import G5k
 from enoslib.infra.enos_vagrant.provider import Enos_vagrant
 import logging
