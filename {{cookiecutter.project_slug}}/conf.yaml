@@ -13,19 +13,19 @@ vagrant:
         networks: [n1]
 g5k:
   resources:
-  machines:
-    - role: control
-      cluster: paravance
-      nodes: 1
-      primary_network: n1
-      secondary_networks: []
-    - roles: [control, compute]
-      cluster: parasilo
-      nodes: 1
-      primary_network: n1
-      secondary_networks: []
-  networks:
-    - id: n1
-      type: prod
-      role: my_network
-      site: rennes
+    machines:
+      - role: control
+        cluster: paravance
+        nodes: 1
+        primary_network: n1
+        secondary_networks: []
+      - roles: [control, compute]
+        cluster: parasilo
+        nodes: 1
+        primary_network: n1
+        secondary_networks: []
+    networks:
+      - id: n1
+        type: prod
+        role: my_network
+        site: rennes
