@@ -1,8 +1,11 @@
-from enoslib.api import generate_inventory
+from enoslib.api import generate_inventory, run_ansible
 from enoslib.task import enostask
 from enoslib.infra.enos_g5k.provider import G5k
 from enoslib.infra.enos_vagrant.provider import Enos_vagrant
 import logging
+import os
+
+from {{ cookiecutter.project_slug }}.constants import ANSIBLE_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -30,5 +33,35 @@ def inventory(**kwargs):
     env = kwargs["env"]
     roles = env["roles"]
     networks = env["networks"]
-    env["inventory"] = path.join(env["resultdir"], "hosts")
+    env["inventory"] = os.path.join(env["resultdir"], "hosts")
     generate_inventory(roles, networks, env["inventory"], check_networks=True)
+
+
+@enostask()
+def prepare(**kwargs):
+    env = kwargs["env"]
+    extra_vars = {
+        "enos_action": "deploy"
+    }
+    run_ansible([os.path.join(ANSIBLE_DIR, "site.yml")],
+                env["inventory"], extra_vars=extra_vars)
+
+
+@enostask()
+def backup(**kwargs):
+    env = kwargs["env"]
+    extra_vars = {
+        "enos_action": "backup"
+    }
+    run_ansible([os.path.join(ANSIBLE_DIR, "site.yml")],
+                env["inventory"], extra_vars=extra_vars)
+
+
+@enostask()
+def destroy(**kwargs):
+    env = kwargs["env"]
+    extra_vars = {
+        "enos_action": "destroy"
+    }
+    run_ansible([os.path.join(ANSIBLE_DIR, "site.yml")],
+                env["inventory"], extra_vars=extra_vars)

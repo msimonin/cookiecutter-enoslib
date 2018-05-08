@@ -57,3 +57,25 @@ def vagrant(force, conf, env):
               help="alternative environment directory")
 def inventory(env):
     t.inventory(env=env)
+
+
+
+@cli.command(help="Configure available resources [after deploy, inventory or destroy].")
+@click.option("--env",
+              help="alternative environment directory")
+def prepare(env):
+    t.prepare(env=env)
+
+
+@cli.command(help="Backup the deployed environment")
+@click.option("--env",
+              help="alternative environment directory")
+def backup(env):
+    t.backup(env=env)
+
+
+@cli.command(help="Destroy the deployed environment")
+@click.option("--env",
+              help="alternative environment directory")
+def destroy(env):
+    t.destroy(env=env)

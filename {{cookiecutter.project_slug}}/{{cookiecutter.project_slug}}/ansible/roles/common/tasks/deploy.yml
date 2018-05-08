@@ -1,0 +1,3 @@
+- name: Deploy tasks
+  debug:
+    msg: "Let's make {{ cookiecutter.project_name }} awesome !"
