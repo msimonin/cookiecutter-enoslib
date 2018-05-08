@@ -59,8 +59,8 @@ def inventory(env):
     t.inventory(env=env)
 
 
-
-@cli.command(help="Configure available resources [after deploy, inventory or destroy].")
+@cli.command(help="Configure available resources [after deploy, inventory or\
+             destroy].")
 @click.option("--env",
               help="alternative environment directory")
 def prepare(env):
