@@ -1,6 +1,6 @@
-import logging
-
 import click
+import logging
+import yaml
 
 import {{ cookiecutter.project_slug }}.tasks as t
 from {{ cookiecutter.project_slug }}.constants import CONF
@@ -33,7 +33,7 @@ def load_config(file_path):
               help="alternative configuration file")
 @click.option("--env",
               help="alternative environment directory")
-def g5k(constraints, force, conf, env):
+def g5k(force, conf, env):
     config = load_config(conf)
     t.g5k(force=force, config=config, env=env)
 
@@ -47,7 +47,7 @@ def g5k(constraints, force, conf, env):
               help="alternative configuration file")
 @click.option("--env",
               help="alternative environment directory")
-def vagrant(constraints, force, conf, env):
+def vagrant(force, conf, env):
     config = load_config(conf)
     t.vagrant(force=force, config=config, env=env)
 
