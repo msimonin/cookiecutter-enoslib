@@ -9,7 +9,6 @@ from {{ cookiecutter.project_slug }}.constants import ANSIBLE_DIR
 
 logger = logging.getLogger(__name__)
 
-
 def init_provider(provider, name, force, config, env):
     instance = provider(config[name])
     roles, networks = instance.init(force_deploy=force)
@@ -65,3 +64,11 @@ def destroy(**kwargs):
     }
     run_ansible([os.path.join(ANSIBLE_DIR, "site.yml")],
                 env["inventory"], extra_vars=extra_vars)
+
+
+PROVIDERS = {
+    "g5k": g5k,
+    "vagrant": vagrant,
+#    "static": static
+#    "chameleon": chameleon
+}

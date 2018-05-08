@@ -79,3 +79,20 @@ def backup(env):
               help="alternative environment directory")
 def destroy(env):
     t.destroy(env=env)
+
+
+@cli.command(help="Claim resources from a PROVIDER and configure them.")
+@click.argument("provider")
+@click.option("--force",
+              is_flag=True,
+              help="force redeployment")
+@click.option("--conf",
+              default=CONF,
+              help="alternative configuration file")
+@click.option("--env",
+              help="alternative environment directory")
+def deploy(provider, force, conf, env):
+    config = load_config(conf)
+    t.PROVIDERS[provider](force=force, config=config, env=env)
+    t.inventory()
+    t.prepare(env=env)
