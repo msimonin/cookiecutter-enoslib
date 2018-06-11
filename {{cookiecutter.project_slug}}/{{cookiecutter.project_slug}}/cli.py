@@ -35,7 +35,7 @@ def load_config(file_path):
               help="alternative environment directory")
 def g5k(force, conf, env):
     config = load_config(conf)
-    t.g5k(force=force, config=config, env=env)
+    t.g5k(config, force, env=env)
 
 
 @cli.command(help="Claim resources on vagrant (localhost).")
@@ -49,7 +49,7 @@ def g5k(force, conf, env):
               help="alternative environment directory")
 def vagrant(force, conf, env):
     config = load_config(conf)
-    t.vagrant(force=force, config=config, env=env)
+    t.vagrant(config, force, env=env)
 
 
 @cli.command(help="Generate the Ansible inventory [after g5k or vagrant].")
@@ -93,6 +93,6 @@ def destroy(env):
               help="alternative environment directory")
 def deploy(provider, force, conf, env):
     config = load_config(conf)
-    t.PROVIDERS[provider](force=force, config=config, env=env)
+    t.PROVIDERS[provider](config, force, env=env)
     t.inventory()
     t.prepare(env=env)

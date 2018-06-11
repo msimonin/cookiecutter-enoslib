@@ -10,22 +10,22 @@ from {{ cookiecutter.project_slug }}.constants import ANSIBLE_DIR
 logger = logging.getLogger(__name__)
 
 
-def init_provider(provider, name, force, config, env):
-    instance = provider(config[name])
-    roles, networks = instance.init(force_deploy=force)
+@enostask(new=True)
+def g5k(config, force, env=None, **kwargs):
+    provider = G5k(config["g5k"])
+    roles, networks = provider.init(force_deploy=force)
     env["config"] = config
     env["roles"] = roles
     env["networks"] = networks
 
 
 @enostask(new=True)
-def g5k(**kwargs):
-    init_provider(G5k, "g5k", **kwargs)
-
-
-@enostask(new=True)
-def vagrant(**kwargs):
-    init_provider(Enos_vagrant, "vagrant", **kwargs)
+def vagrant(config, force, env=None, **kwargs):
+    provider = Enos_vagrant(config["vagrant"])
+    roles, networks = provider.init(force_deploy=force)
+    env["config"] = config
+    env["roles"] = roles
+    env["networks"] = networks
 
 
 @enostask()
@@ -70,6 +70,8 @@ def destroy(**kwargs):
 PROVIDERS = {
     "g5k": g5k,
     "vagrant": vagrant,
-#    "static": static
-#    "chameleon": chameleon
+    #    "static": static
+    #    "chameleon": chameleon
 }
+
+
