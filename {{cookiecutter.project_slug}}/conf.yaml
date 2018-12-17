@@ -1,20 +1,21 @@
 ---
 vagrant:
-  backend: virtualbox
+  backend: libvirt
   resources:
     machines:
-      - role: control
+      - roles: [control]
         flavor: tiny
         number: 1
-        networks: [n1]
       - roles: [control, compute]
         flavor: tiny
         number: 1
-        networks: [n1]
+    networks:
+    - roles: [n1]
+      cidr: 10.42.42.0/24
 g5k:
   resources:
     machines:
-      - role: control
+      - roles: [control]
         cluster: paravance
         nodes: 1
         primary_network: n1

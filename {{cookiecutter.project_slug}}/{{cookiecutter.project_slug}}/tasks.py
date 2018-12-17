@@ -1,7 +1,9 @@
 from enoslib.api import generate_inventory, run_ansible
 from enoslib.task import enostask
 from enoslib.infra.enos_g5k.provider import G5k
+from enoslib.infra.enos_g5k.configuration import Configuration as G5kConf
 from enoslib.infra.enos_vagrant.provider import Enos_vagrant
+from enoslib.infra.enos_vagrant.configuration import Configuration as VagrantConf
 import logging
 import os
 
@@ -12,7 +14,10 @@ logger = logging.getLogger(__name__)
 
 @enostask(new=True)
 def g5k(config, force, env=None, **kwargs):
-    provider = G5k(config["g5k"])
+    # Load the configuration.
+    # Alternatively you can build the configuration programmatically
+    conf = G5kConf.from_dictionnary(config["g5k"])
+    provider = G5k(conf)
     roles, networks = provider.init(force_deploy=force)
     env["config"] = config
     env["roles"] = roles
@@ -21,7 +26,10 @@ def g5k(config, force, env=None, **kwargs):
 
 @enostask(new=True)
 def vagrant(config, force, env=None, **kwargs):
-    provider = Enos_vagrant(config["vagrant"])
+    # Load the configuration.
+    # Alternatively you can build the configuration programmatically
+    conf = VagrantConf.from_dictionnary(config["vagrant"])
+    provider = Enos_vagrant(conf)
     roles, networks = provider.init(force_deploy=force)
     env["config"] = config
     env["roles"] = roles
