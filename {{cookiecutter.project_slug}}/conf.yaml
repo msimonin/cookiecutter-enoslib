@@ -4,10 +4,10 @@ vagrant:
   resources:
     machines:
       - roles: [control]
-        flavor: tiny
+        flavour: tiny
         number: 1
       - roles: [control, compute]
-        flavor: tiny
+        flavour: tiny
         number: 1
     networks:
     - roles: [n1]
