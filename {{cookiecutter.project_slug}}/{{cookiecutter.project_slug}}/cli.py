@@ -52,26 +52,12 @@ def vagrant(force, conf, env):
     t.vagrant(config, force, env=env)
 
 
-@cli.command(help="Generate the Ansible inventory [after g5k or vagrant].")
-@click.option("--env",
-              help="alternative environment directory")
-def inventory(env):
-    t.inventory(env=env)
-
-
 @cli.command(help="Configure available resources [after deploy, inventory or\
              destroy].")
 @click.option("--env",
               help="alternative environment directory")
 def prepare(env):
     t.prepare(env=env)
-
-
-@cli.command(help="Backup the deployed environment")
-@click.option("--env",
-              help="alternative environment directory")
-def backup(env):
-    t.backup(env=env)
 
 
 @cli.command(help="Destroy the deployed environment")
@@ -94,5 +80,4 @@ def destroy(env):
 def deploy(provider, force, conf, env):
     config = load_config(conf)
     t.PROVIDERS[provider](config, force, env=env)
-    t.inventory()
     t.prepare(env=env)
